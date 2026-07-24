@@ -9,7 +9,8 @@
                 <div class="card" v-for="producto in productos" :key="producto.id">
                 <img :src="producto.imagen" :alt="producto.nombre" />
                 <h2>{{ producto.nombre }}</h2>
-                <p>{{ producto.descripcion }}</p>
+                <p>Por dentro: {{ producto.Relleno }}</p>
+                <p>Por fuera: {{ producto.Cubierto }}</p>
                 <p>${{ producto.precio}}</p>  
                 <button @click="agregarAlCarrito(producto)">Agregar al Carrito</button>
                 </div>
@@ -21,10 +22,14 @@
 <script setup>
 import {ref} from 'vue'
 import '../assets/css/menu.css'
+import SushiSalmon from '../assets/image/SushiSalmon.jpg'
+import SushiAtun from '../assets/image/SushiAtun.jpg'
+import SushiAguacate from '../assets/image/SushiAguacate.jpg'
 //prueba para ver funcionalidad
 const productos = ref([
-    { id: 1, nombre: 'Sushi de Salmón', descripcion: 'Sushi relleno de queso crema y pepino, salmón por fuera', precio: 80, imagen: 'https://example.com/sushi-salmon.jpg' },
-    { id: 2, nombre: 'Sushi de Atún', descripcion: 'Sushi relleno de queso crema y pepino, salmón por fuera', precio: 80, imagen: 'https://example.com/sushi-atun.jpg' },
+    { id: 1, nombre: 'Sushi de Salmón', Relleno: 'queso crema y pepino', Cubierto: 'salmón fresco', precio: 80, imagen: SushiSalmon },
+    { id: 2, nombre: 'Sushi de Atún', Relleno: 'queso crema y pepino', Cubierto: 'atún fresco', precio: 80, imagen: SushiAtun },
+    { id: 3, nombre: 'Sushi de Aguacate', Relleno: 'queso crema y pepino', Cubierto: 'aguacate', precio: 80, imagen: SushiAguacate },
 ])
 
 const carrito = ref([])
