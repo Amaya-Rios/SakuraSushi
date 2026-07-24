@@ -2,7 +2,7 @@
   <div class="login-container">
     <div class="login-card">
       <h1>Sakura Sushi</h1>
-      <h2>Iniciar Sesión</h2>
+      <h2>Inicio de Sesión</h2>
 
       <form @submit.prevent="login">
         <input
@@ -18,8 +18,6 @@
           placeholder="Contraseña"
           required
         />
-        <a href="NewUserView.vue">Nuevo empleado?</a>
-
         <button type="submit">
           Entrar
         </button>
