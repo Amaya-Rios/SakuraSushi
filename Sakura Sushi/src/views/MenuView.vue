@@ -22,7 +22,7 @@
 <script setup>
 import {ref} from 'vue'
 import Navbar from '../components/Navbar.vue'
-import '../assets/css/menu.css'
+import '../assets/css/Menu.css'
 import SushiSalmon from '../assets/image/SushiSalmon.jpg'
 import SushiAtun from '../assets/image/SushiAtun.jpg'
 import SushiAguacate from '../assets/image/SushiAguacate.jpg'
