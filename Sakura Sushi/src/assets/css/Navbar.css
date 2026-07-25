@@ -1,0 +1,30 @@
+.navbar {
+    background-color: #d62828;
+    color: white;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+}
+
+.navegacion {
+    display: flex;
+    gap: 15px;
+    list-style: none;
+}
+.navegacion a {
+    display:block;
+    padding: 10px 15px;
+    border-radius: 5px;
+    color: white;
+    text-decoration: none;
+    font-weight: bold;
+    transition: color 0.3s;
+}
+
+.navegacion a:hover {
+    text-decoration: underline;
+    background: #000000;
+}
