@@ -28,7 +28,7 @@
 
 <script setup>
 import { ref } from 'vue'
-import '../assets/css/login.css'
+import '../assets/css/Login.css'
 const correo = ref('')
 const password = ref('')
 
