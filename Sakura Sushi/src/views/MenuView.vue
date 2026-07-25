@@ -1,5 +1,5 @@
 <template>
-    
+    <Navbar />
     <div class="menu-container">
         
         <div class="productos">
@@ -21,6 +21,7 @@
 
 <script setup>
 import {ref} from 'vue'
+import Navbar from '../components/Navbar.vue'
 import '../assets/css/menu.css'
 import SushiSalmon from '../assets/image/SushiSalmon.jpg'
 import SushiAtun from '../assets/image/SushiAtun.jpg'
