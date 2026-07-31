@@ -17,7 +17,11 @@
           type="password"
           placeholder="Contraseña"
           required
+        
+
         />
+        <div v-if="error" class="error-message">{{ error }}</div>
+
         <button type="submit">
           Entrar
         </button>
@@ -29,14 +33,23 @@
 <script setup>
 import { ref } from 'vue'
 import '../assets/css/Login.css'
+import {validarCorreo, validarPassword, autenticarUsuario} from '../controllers/AuthController.js'
 const correo = ref('')
 const password = ref('')
+const error = ref('')
 
-const login = () => {
-  console.log(correo.value)
-  console.log(password.value)
-
-  // Conectar con firebase para autenticación
+const login = async() => {
+  error.value = ''
+  const resultado=await autenticarUsuario(correo.value, password.value)
+  if (!resultado.exito) {
+    error.value = resultado.message
+    return
+  }
+  console.log('Usuario autenticado:', resultado.usuario)
 }
+
+//prueba de conección firebase
+import {obtenerUsuarios} from '../controllers/AuthController.js'
+obtenerUsuarios();
 </script>
 
