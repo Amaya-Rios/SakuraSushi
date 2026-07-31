@@ -49,6 +49,9 @@ const login = async() => {
     error.value = resultado.message
     return
   }
+  error.value = ''
+  mensaje.value = 'Usuario autenticado correctamente'
+  
   const usuario = resultado.usuario
   console.log(usuario.Rol)
 
