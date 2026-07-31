@@ -34,6 +34,9 @@
 import { ref } from 'vue'
 import '../assets/css/Login.css'
 import {validarCorreo, validarPassword, autenticarUsuario} from '../controllers/AuthController.js'
+import { useRouter } from 'vue-router'
+const router = useRouter()
+
 const correo = ref('')
 const password = ref('')
 const error = ref('')
@@ -41,11 +44,30 @@ const error = ref('')
 const login = async() => {
   error.value = ''
   const resultado=await autenticarUsuario(correo.value, password.value)
-  if (!resultado.exito) {
+
+  if (!resultado.success) {
     error.value = resultado.message
     return
   }
+  const usuario = resultado.usuario
+  console.log(usuario.Rol)
+
+  localStorage.setItem('usuario', JSON.stringify(resultado.usuario))
   console.log('Usuario autenticado:', resultado.usuario)
+
+  switch (usuario.Rol) {
+    case 'Cocina':
+      router.push('/Cocina')
+      break
+    case 'Mesero':
+      router.push('/Mesero')
+      break
+    case 'Administrador':
+      router.push('/Admin')
+      break
+    default:
+      error.value = 'Rol de usuario desconocido'
+  }
 }
 
 //prueba de conección firebase
