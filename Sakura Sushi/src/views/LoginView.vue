@@ -21,9 +21,10 @@
 
         />
         <div v-if="error" class="error-message">{{ error }}</div>
+        <div v-if="mensaje" class="success-message">{{ mensaje }}</div>
 
         <button type="submit">
-          Entrar
+          Iniciar Sesión
         </button>
       </form>
     </div>
@@ -40,6 +41,7 @@ const router = useRouter()
 const correo = ref('')
 const password = ref('')
 const error = ref('')
+const mensaje = ref('')
 
 const login = async() => {
   error.value = ''
@@ -47,18 +49,16 @@ const login = async() => {
 
   if (!resultado.success) {
     error.value = resultado.message
+    mensaje.value = ''
     return
   }
   error.value = ''
   mensaje.value = 'Usuario autenticado correctamente'
-  
-  const usuario = resultado.usuario
-  console.log(usuario.Rol)
 
   localStorage.setItem('usuario', JSON.stringify(resultado.usuario))
-  console.log('Usuario autenticado:', resultado.usuario)
+  console.log('Usuario autenticado:', resultado.usuario.Rol)
 
-  switch (usuario.Rol) {
+  switch (resultado.usuario.Rol) {
     case 'Cocina':
       router.push('/Cocina')
       break
@@ -73,8 +73,8 @@ const login = async() => {
   }
 }
 
-//prueba de conección firebase
+/*prueba de conección firebase
 import {obtenerUsuarios} from '../controllers/AuthController.js'
-obtenerUsuarios();
+obtenerUsuarios();*/
 </script>
 

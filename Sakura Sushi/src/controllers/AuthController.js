@@ -37,10 +37,10 @@ export async function autenticarUsuario(correo, password) {
 
 }
 
-//prueba de conección a firebase
+/*//prueba de conección a firebase
 export async function obtenerUsuarios() {
     const snapshot = await getDocs(collection(db, "User"));
     snapshot.forEach((doc) => {
         console.log(doc.id, " => ", doc.data());
     });
-}
+}*/
