@@ -1,7 +1,6 @@
 <template>
     <div class="admin-container"> 
         <h1>Panel de Administración</h1>
-
         <div class="container">
             <div class="card">
                 <h1>Administración de usuarios</h1>

@@ -23,7 +23,7 @@ select, input{
 
 .card{
     background: white;
-    padding-right: 40px;
+    padding: 20px;
     margin-top: 20px;
     border-radius: 15px;
     box-shadow: 0 4px 15px rgba(0,0,0,.15);
@@ -68,7 +68,7 @@ th, td{
     text-align: left;
 }
 
-/*Formulario de nuevo usuario*/
+/*Para formularios de nuevo usuario, edición y platillos*/
 .modal {
   position: fixed;
   top: 0;
