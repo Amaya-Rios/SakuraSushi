@@ -28,3 +28,14 @@
     text-decoration: underline;
     background: #000000;
 }
+
+.logout-icon {
+    cursor: pointer;
+    font-size: 1.2em;
+    color: white;
+    transition: color 0.3s;
+}
+
+.logout-icon:hover {
+    color: #000000;
+}

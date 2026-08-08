@@ -1,4 +1,5 @@
 import {createRouter, createWebHistory} from 'vue-router'
+import { auth } from '../config/firebase.js'
 import LoginView from '../views/LoginView.vue'
 import MenuView from '../views/MenuView.vue'
 import AdminView from '../views/AdminView.vue'

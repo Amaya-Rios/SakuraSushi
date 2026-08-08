@@ -37,6 +37,14 @@ export async function autenticarUsuario(correo, password) {
 
 }
 
+//Para hacer cerrar sesión de usuario
+import { auth } from "../config/firebase.js";
+import { signOut } from "firebase/auth";
+export async function cerrarSesion() {
+    await signOut(auth);
+}
+
+
 /*//prueba de conección a firebase
 export async function obtenerUsuarios() {
     const snapshot = await getDocs(collection(db, "User"));
