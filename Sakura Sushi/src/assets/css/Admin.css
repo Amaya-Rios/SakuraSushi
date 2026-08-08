@@ -3,6 +3,12 @@
   text-align: center;
   background: #000000;
 }
+.container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(500px, 1fr));
+    gap: 20px;
+    padding: 20px;
+}
 
 p{
     color: white;
@@ -24,11 +30,10 @@ select, input{
 .card{
     background: white;
     padding: 20px;
-    margin-top: 20px;
     border-radius: 15px;
     box-shadow: 0 4px 15px rgba(0,0,0,.15);
+    margin-top: 0;
 }
-
 .card button{
     background: #d62828;
     color: white;
