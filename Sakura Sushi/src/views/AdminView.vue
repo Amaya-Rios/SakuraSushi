@@ -1,7 +1,6 @@
 <template>
-    <Navbar />
+    <Navbar> <h1 class="titulo-navbar">Panel de administración</h1></Navbar>
     <div class="admin-container"> 
-        <h1>Panel de Administración</h1>
         <div class="container">
 <!-----------Panel de usuarios------------------>
             <div class="card">
