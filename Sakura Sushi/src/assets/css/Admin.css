@@ -1,7 +1,14 @@
+body {
+margin: 0;
+padding: 0;
+}
+
+#app{
+    background: #000000;
+}
 .admin-container {
   justify-content: center;
   text-align: center;
-  background: #000000;
 }
 .container {
     display: grid;

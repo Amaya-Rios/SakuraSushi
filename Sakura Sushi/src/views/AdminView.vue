@@ -1,4 +1,5 @@
 <template>
+    <Navbar />
     <div class="admin-container"> 
         <h1>Panel de Administración</h1>
         <div class="container">
@@ -240,7 +241,6 @@
                 </form>
                 <div v-if="mensaje" class="success-message">{{ mensaje }}</div>
                 <hr>
-
             </div>
         </div>
     </div>
@@ -249,6 +249,7 @@
 <script setup>
 import { ref, onMounted } from 'vue'
 import '../assets/css/Admin.css'
+import Navbar from '../components/Navbar.vue'
 // para crud de usuarios
 import { registrarUsuario, listarUsuarios, borrarUsuario, modificarUsuario } from '@/controllers/UserController';
 
