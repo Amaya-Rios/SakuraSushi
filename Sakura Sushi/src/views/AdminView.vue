@@ -251,7 +251,8 @@ import { ref, onMounted } from 'vue'
 import '../assets/css/Admin.css'
 // para crud de usuarios
 import { registrarUsuario, listarUsuarios, borrarUsuario, modificarUsuario } from '@/controllers/UserController';
-
+//para hasheo de contraseñas
+import bcrypt from 'bcryptjs';
 //para crud de platillos
 import { registrarPlatillo, listarPlatillos, borrarPlatillo, modificarPlatillo as actualizarPlatillo } from '@/controllers/PlatilloController';
 
@@ -305,11 +306,12 @@ async function cargarUsuarios() {
 
 async function guardarUsuario(){
     try{
+        const passwordHash = await bcrypt.hash(nuevoPassword.value,10)
         await registrarUsuario({
             Nombre:nuevoNombre.value,
             Apellido:nuevoApellido.value,
             Correo:nuevoCorreo.value,
-            Contraseña:nuevoPassword.value,
+            Contraseña:passwordHash,
             Rol: nuevoRol.value
         })
         mensaje.value= 'usuario creado correctamente'
@@ -329,13 +331,14 @@ async function guardarUsuario(){
 
 async function guardarCambios(){
     try{
+        const passwordHash = await bcrypt.hash(editPassword.value, 10)
         await modificarUsuario(
             usuarioEditar.value.id,
             {
                 Nombre:editNombre.value,
                 Apellido:editApellido.value,
                 Correo:editCorreo.value,
-                Contraseña:editPassword.value,
+                Contraseña:passwordHash,
                 Rol: editRol.value
             }
         )

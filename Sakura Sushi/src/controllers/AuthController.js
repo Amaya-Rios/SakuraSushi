@@ -11,8 +11,10 @@ export function validarPassword(password){
 //para validaciones de firebase
 import {db} from "../config/firebase.js";
 import {collection, query, where, getDocs} from "firebase/firestore";
+import bcrypt from "bcryptjs";
+
 export async function autenticarUsuario(correo, password) {
-    const q = query(collection(db, "User"), where("Correo", "==", correo), where("Contraseña", "==", password));
+    const q = query(collection(db, "User"), where("Correo", "==", correo));
     const snapshot = await getDocs(q);
     if (snapshot.empty) { //si el correo no existe
         return {
@@ -22,7 +24,9 @@ export async function autenticarUsuario(correo, password) {
     }
 
     const usuario = snapshot.docs[0].data();
-    if (usuario.Contraseña !== password) { //si la contraseña es incorrecta
+    const passwordCorrecta = await bcrypt.compare(password,usuario.Contraseña);
+
+    if (!passwordCorrecta) { //si la contraseña es incorrecta
         return {
             success: false,
             message: "Contraseña incorrecta"
