@@ -3,6 +3,11 @@ const API_URL = "http://localhost:3000/api/platillos";
 //get
 export async function obtenerPlatillos() {
     const response = await fetch(API_URL);
+    if (!response.ok) {
+        const errorText = await response.text();
+        console.error("Error en backend:", errorText);
+        throw new Error(`Error ${response.status}`);
+    }
     return await response.json();
 }
 

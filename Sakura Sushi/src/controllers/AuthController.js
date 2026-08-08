@@ -14,29 +14,67 @@ import {collection, query, where, getDocs} from "firebase/firestore";
 import bcrypt from "bcryptjs";
 
 export async function autenticarUsuario(correo, password) {
-    const q = query(collection(db, "User"), where("Correo", "==", correo));
+
+    const q = query(
+        collection(db, "User"),
+        where("Correo", "==", correo)
+    );
+
     const snapshot = await getDocs(q);
-    if (snapshot.empty) { //si el correo no existe
+
+    if (snapshot.empty) {
+
         return {
             success: false,
             message: "El usuario no está registrado"
         };
+
     }
 
     const usuario = snapshot.docs[0].data();
-    const passwordCorrecta = await bcrypt.compare(password,usuario.Contraseña);
 
-    if (!passwordCorrecta) { //si la contraseña es incorrecta
-        return {
-            success: false,
-            message: "Contraseña incorrecta"
-        };
+    const passwordGuardada =
+        usuario.Contraseña;
+
+    // Contraseña hasheada
+    if (passwordGuardada.startsWith('$2')) {
+
+        const coincide =
+            await bcrypt.compare(
+                password,
+                passwordGuardada
+            );
+
+        if (!coincide) {
+
+            return {
+                success: false,
+                message: "Contraseña incorrecta"
+            };
+
+        }
+
+    }
+    else {
+
+        // Contraseña en texto plano
+        if (passwordGuardada !== password) {
+
+            return {
+                success: false,
+                message: "Contraseña incorrecta"
+            };
+
+        }
+
     }
 
     return {
+
         success: true,
         message: "Autenticación exitosa",
-        usuario: usuario
+        usuario
+
     };
 
 }

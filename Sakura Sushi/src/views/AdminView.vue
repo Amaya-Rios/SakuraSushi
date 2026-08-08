@@ -101,6 +101,7 @@
                         <option value="" disabled>Selecciona un rol</option>
                         <option value="Cocina">Cocina</option>
                         <option value="Mesero">Mesero</option>
+                        <option value="Administrador">Administrador</option>
                     </select>
                     <button type="submit">Crear Usuario</button>
                     <button type="button" @click="mostrarFormulario = false">Cancelar</button>
