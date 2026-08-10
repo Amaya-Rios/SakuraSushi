@@ -8,8 +8,8 @@
 
         <ul class="navegacion">
             <template v-if="usuario?.Rol === 'Mesero'">
-                <li><router-link to="/Mesero">Mesas</router-link></li>
-                <li><router-link to="/Menu">Menú</router-link></li>
+                <li v-if="route.name === 'menu'"><router-link to="/Mesero">Mesas</router-link></li>
+                <li v-if="route.name === 'mesero'"><router-link to="/Menu">Menú</router-link></li>
             </template>
             <li><i class="fa-solid fa-right-from-bracket logout-icon" @click="logout" title="Cerrar sesión"></i></li>
         </ul>
