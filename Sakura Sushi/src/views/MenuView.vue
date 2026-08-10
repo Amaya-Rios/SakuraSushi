@@ -16,11 +16,20 @@
                 </div>
             </div> 
         </div>
+        <!-- Orden de platillos -->
+         <aside class="carrito">
+            <h2>Orden actual</h2>
+            
+         </aside>
     </div>
 </template>
 
 <script setup>
+<<<<<<< Updated upstream
 import {ref} from 'vue'
+=======
+import {ref, onMounted, computed} from 'vue'
+>>>>>>> Stashed changes
 import Navbar from '../components/Navbar.vue'
 import '../assets/css/Menu.css'
 import SushiSalmon from '../assets/image/SushiSalmon.jpg'
@@ -36,9 +45,19 @@ const productos = ref([
 const carrito = ref([])
 
 const agregarAlCarrito = (producto) => {
-    carrito.value.push(producto)
-    console.log('Producto agregado al carrito:', producto)
+    const existente = carrito.value.find(
+        item => item.id === producto.id
+    )
+    if (existente){
+        existente.cantidad++
+    }
+    else{
+        carrito.value.push({...producto, cantidad: 1})
+    }
 }
+const total = computed (() => {
+    return carrito.value.reduce((suma, item) => suma + (item.Precio * item.cantidad), 0)
+})
 
 </script>
 
