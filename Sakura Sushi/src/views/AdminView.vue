@@ -3,7 +3,7 @@
     <div class="admin-container"> 
         <div class="container">
 <!-----------Panel de usuarios------------------>
-            <div class="card">
+            <div class="admin-card">
                 <h1>Administración de usuarios</h1>
                 <button class="btn-agregar" @click="mostrarFormulario = true">Agregar usuario</button>
                 <br><br>
@@ -33,7 +33,7 @@
                 </div>
             </div>
 <!-----------Panel de platillos------------------>
-            <div class="card">
+            <div class="admin-card">
                 <h1>Administración de platillos</h1>
                 <button class="btn-agregar" @click="mostrarFormularioPlatillo = true">Agregar platillo</button>
                 <br><br>
