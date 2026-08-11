@@ -16,8 +16,16 @@
         </div>
         <!-- Orden de platillos -->
          <aside class="carrito">
-            <h2>Orden actual</h2>
-            
+            <h2>Orden mesa:{{ mesaSeleccionada }}</h2>
+            <div v-if="carrito.length > 0" v-for="item in carrito">
+                <h4>{{ item.Nombre }}</h4>
+                <p>CAntidad: {{ item.cantidad }}</p>
+                <p>Subtotal: ${{ item.Precio }}</p>
+                <button class="btn-eliminar" @click="eliminarDelCarrito(item.id)">Eliminar</button>
+                <hr>
+            </div>
+            <p v-if="carrito.length === 0">Sin platillos agregados</p>
+            <button class="btn-enviar" v-if="carrito.length > 0" @click="enviarPedido">Enviar pedido</button>
          </aside>
     </div>
 </template>
@@ -27,7 +35,11 @@ import {ref, onMounted, computed} from 'vue'
 import Navbar from '../components/Navbar.vue'
 import '../assets/css/Menu.css'
 import { listarPlatillos } from '@/controllers/PlatilloController.js'
-
+import { useRoute } from 'vue-router'
+import { collection, addDoc } from 'firebase/firestore'
+import { db } from '@/config/firebase.js'
+const route = useRoute()
+const mesaSeleccionada = ref(route.query.mesa)
 const productos = ref([])
 
 async function cargarPlatillos() {
@@ -62,9 +74,31 @@ const agregarAlCarrito = (producto) => {
         carrito.value.push({...producto, cantidad: 1})
     }
 }
+
+const eliminarDelCarrito = (id) => {
+    carrito.value = carrito.value.filter(item => item.id !==id)
+}
 const total = computed (() => {
     return carrito.value.reduce((suma, item) => suma + (item.Precio * item.cantidad), 0)
 })
+
+const enviarPedido = async () =>{
+    try{
+        await addDoc(collection(db, "pedidos"),{
+            mesa: mesaSeleccionada.value,
+            productos: carrito.value,
+            total: total.value,
+            estado: 'Pendiente',
+            fecha: new Date()
+        })
+
+        carrito.value = []
+        alert ("Pedido enviado a cocina")
+    }catch (error){
+        console.error(error)
+    }
+           
+}
 
 onMounted(() => {
     cargarPlatillos()
