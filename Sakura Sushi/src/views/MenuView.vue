@@ -6,26 +6,35 @@
                 
                 <div class="card" v-for="producto in productos" :key="producto.id">
                 <img :src="producto.Imagen" :alt="producto.Nombre" />
-                <h2>{{ producto.Nombre }}</h2>
-                <p>Por dentro: {{ producto.Relleno }}</p>
-                <p>Por fuera: {{ producto.Cubierto }}</p>
-                <p>${{ producto.Precio}}</p>  
-                <button @click="agregarAlCarrito(producto)">Agregar al Carrito</button>
+                <div class="contenido-card">
+                    <h2>{{ producto.Nombre }}</h2>
+                    <p><strong>Por dentro:</strong> {{ producto.Relleno }}</p>
+                    <p><strong>Por fuera:</strong> {{ producto.Cubierto }}</p>
+                    <p class="precio">${{ producto.Precio}}</p> 
+                </div>
+                <button @click="agregarAlPedido(producto)">Agregar al pedido</button>
                 </div>
             </div> 
         </div>
         <!-- Orden de platillos -->
-         <aside class="carrito">
-            <h2>Orden mesa:{{ mesaSeleccionada }}</h2>
-            <div v-if="carrito.length > 0" v-for="item in carrito">
-                <h4>{{ item.Nombre }}</h4>
-                <p>CAntidad: {{ item.cantidad }}</p>
-                <p>Subtotal: ${{ item.Precio }}</p>
-                <button class="btn-eliminar" @click="eliminarDelCarrito(item.id)">Eliminar</button>
+         <aside class="pedido">
+            <h2>Orden mesa {{ mesaSeleccionada }}</h2>
+            <div v-if="Pedido.length > 0" v-for="item in Pedido">
+                
+                <div class="cantidad-control">
+                    <span>{{ item.Nombre }}</span>
+                    <button class="btn-cantidad" @click="disminuirCantidad(item.id)">-</button>
+                    <span class="cantidad">{{ item.cantidad }}</span>
+                    <button class="btn-cantidad" @click="aumentarCantidad(item.id)">+</button>
+                    <button class="btn-eliminar" @click="eliminarDelPedido(item.id)">Eliminar</button>
+
+                </div>
                 <hr>
             </div>
-            <p v-if="carrito.length === 0">Sin platillos agregados</p>
-            <button class="btn-enviar" v-if="carrito.length > 0" @click="enviarPedido">Enviar pedido</button>
+            <p v-if="Pedido.length === 0">Sin platillos agregados</p>
+            <hr>
+            <h3>Total: ${{ total }}</h3>
+            <button class="btn-enviar" v-if="Pedido.length > 0" @click="enviarPedido">Enviar pedido</button>
          </aside>
     </div>
 </template>
@@ -38,6 +47,8 @@ import { listarPlatillos } from '@/controllers/PlatilloController.js'
 import { useRoute } from 'vue-router'
 import { collection, addDoc } from 'firebase/firestore'
 import { db } from '@/config/firebase.js'
+import { serverTimestamp } from 'firebase/firestore'
+
 const route = useRoute()
 const mesaSeleccionada = ref(route.query.mesa)
 const productos = ref([])
@@ -61,38 +72,60 @@ const productos = ref([
     { id: 3, Nombre: 'Sushi de Aguacate', Relleno: 'queso crema y pepino', Cubierto: 'aguacate', Precio: 80, imagen: SushiAguacate },
 ])*/
 
-const carrito = ref([])
+const Pedido = ref([])
 
-const agregarAlCarrito = (producto) => {
-    const existente = carrito.value.find(
+const agregarAlPedido = (producto) => {
+    const existente = Pedido.value.find(
         item => item.id === producto.id
     )
     if (existente){
-        existente.cantidad++
+        existente.Cantidad++
     }
     else{
-        carrito.value.push({...producto, cantidad: 1})
+        Pedido.value.push({...producto, Cantidad: 1})
     }
 }
 
-const eliminarDelCarrito = (id) => {
-    carrito.value = carrito.value.filter(item => item.id !==id)
+const aumentarCantidad = (id) => {
+    const item = Pedido.value.find(
+        producto => producto.id === id
+    )
+    if (item){
+        item.Cantidad++
+    }
+}
+
+const disminuirCantidad = (id) => {
+    const item = Pedido.value.find(
+        producto => producto.id === id
+    )
+    if (item){
+        if (item.Cantidad > 1){
+            item.Cantidad--
+        }
+        else{
+            eliminarDelPedido(id)
+        }
+    }
+}
+
+const eliminarDelPedido = (id) => {
+    Pedido.value = Pedido.value.filter(item => item.id !==id)
 }
 const total = computed (() => {
-    return carrito.value.reduce((suma, item) => suma + (item.Precio * item.cantidad), 0)
+    return Pedido.value.reduce((suma, item) => suma + (item.Precio * item.Cantidad), 0)
 })
 
 const enviarPedido = async () =>{
     try{
-        await addDoc(collection(db, "pedidos"),{
-            mesa: mesaSeleccionada.value,
-            productos: carrito.value,
-            total: total.value,
-            estado: 'Pendiente',
-            fecha: new Date()
+        await addDoc(collection(db, "Pedidos"),{
+            Mesa: mesaSeleccionada.value,
+            Platillos: Pedido.value,
+            Total: total.value,
+            Estado: 'Pendiente',
+            Fecha: serverTimestamp()
         })
-
-        carrito.value = []
+        Pedido.value = []
         alert ("Pedido enviado a cocina")
     }catch (error){
         console.error(error)

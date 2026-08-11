@@ -27,12 +27,35 @@ background: #000000;
 .card{
     max-width: 300px;
     background: white;
-    padding: 20px;
+    padding: 15px;
     margin-bottom: 20px;
-    border-radius: 15px;
+    border-radius: 12px;
+    display: flex;
+    flex-direction: column;
     box-shadow: 0 4px 15px rgba(0,0,0,.15);
 }
 
+.card img{
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+    border-radius: 10px;
+}
+
+.contenido-card{
+    flex: 1;
+}
+
+.card p{
+    color: #333;
+    margin: 6px 0;
+}
+
+.precio{
+    font-size: 20px;
+    font-weight: bold;
+    color: #d62828;
+}
 .card button{
     background: #d62828;
     color: white;
@@ -59,7 +82,7 @@ background: #000000;
 }
 
 
-.carrito{
+.pedido{
     flex: 1;
     background: whitesmoke;
     padding: 20px;
@@ -71,10 +94,41 @@ background: #000000;
     min-width: 200px;
 }
 
-.item-carrito{
+.item-pedido{
     margin-bottom: 15px;
 }
 
+.cantidad-control{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+}
+.cantidad-control span{
+    width: 40px;
+    height: 0;
+
+}
+
+.btn-cantidad{
+    width: 40px;
+    height: 40px;
+    border: none;
+    border-radius: 50%;
+    background: #e53935;
+    color: whitesmoke;
+    font-weight: bold;
+    font-size: 20px;
+    cursor: pointer;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.btn-cantidad:hover{
+    background: #c62828;
+}
 .btn-eliminar{
     background: #d32f2f;
     color: white;
