@@ -33,7 +33,7 @@
 
 <script setup>
 import { ref } from 'vue'
-import '../assets/css/Login.css'
+import '../assets/css/login.css'
 import {validarCorreo, validarPassword, autenticarUsuario} from '../controllers/AuthController.js'
 import { useRouter } from 'vue-router'
 const router = useRouter()

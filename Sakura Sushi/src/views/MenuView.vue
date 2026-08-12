@@ -42,7 +42,7 @@
 <script setup>
 import {ref, onMounted, computed} from 'vue'
 import Navbar from '../components/Navbar.vue'
-import '../assets/css/Menu.css'
+import '../assets/css/menu.css'
 import { listarPlatillos } from '@/controllers/PlatilloController.js'
 import { useRoute } from 'vue-router'
 import { collection, addDoc } from 'firebase/firestore'
