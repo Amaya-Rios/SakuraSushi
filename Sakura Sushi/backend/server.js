@@ -8,6 +8,8 @@ app.use(cors());
 app.use(express.json());
 app.use('/api/platillos', platillosRoutes);
 
-app.listen(3000, () => {
-    console.log("API ejecutándose en el puerto 3000");
-}); 
+const PORT = process.env.PORT || 3000;
+
+app.listen(PORT, () => {
+    console.log(`API ejecutándose en el puerto ${PORT}`);
+});
