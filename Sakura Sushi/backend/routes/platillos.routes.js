@@ -11,3 +11,4 @@ router.put("/:id", upload.single('Imagen'), putPlatillo);
 router.delete("/:id", deletePlatillo);
 
 export default router;
+

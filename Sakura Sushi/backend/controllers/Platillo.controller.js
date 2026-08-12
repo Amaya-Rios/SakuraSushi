@@ -3,7 +3,7 @@ import cloudinary from '../config/cloudinary.js';
 import streamifier from 'streamifier';
 
 
-export const getPlatillos = async (req, res) => {
+export const getPlatillos = async (res) => {
     const datos = await obtenerPlatillos();
     res.json(datos);
 }

@@ -57,6 +57,7 @@ const router = createRouter({
     history: createWebHistory(),
     routes
 })
+
 router.beforeEach((to) => {
     const usuario = JSON.parse(localStorage.getItem('usuario'))
     if (to.path === '/') {
@@ -66,7 +67,7 @@ router.beforeEach((to) => {
         return '/'
     }
     if (to.meta.rol){
-        if (usuario.Rol !== to.meta.rol) { //si el rol del usuario no coincide con el rol requerido
+        if (usuario.Rol !== to.meta.rol) {
         switch (usuario.Rol) {
             case 'Administrador':
                 return '/Admin'

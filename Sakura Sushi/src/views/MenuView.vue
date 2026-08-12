@@ -24,7 +24,7 @@
                 <div class="cantidad-control">
                     <span>{{ item.Nombre }}</span>
                     <button class="btn-cantidad" @click="disminuirCantidad(item.id)">-</button>
-                    <span class="cantidad">{{ item.cantidad }}</span>
+                    <span class="cantidad">{{ item.Cantidad }}</span>
                     <button class="btn-cantidad" @click="aumentarCantidad(item.id)">+</button>
                     <button class="btn-eliminar" @click="eliminarDelPedido(item.id)">Eliminar</button>
 
