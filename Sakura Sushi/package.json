@@ -9,6 +9,16 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@fortawesome/fontawesome-free": "^7.3.1",
+    "bcryptjs": "^3.0.3",
+    "cloudinary": "^2.10.0",
+    "cors": "^2.8.6",
+    "express": "^5.2.1",
+    "firebase": "^12.16.0",
+    "firebase-admin": "^14.2.0",
+    "multer": "^2.2.0",
+    "nodemon": "^3.1.14",
+    "streamifier": "^0.1.1",
     "vue": "^3.5.40",
     "vue-router": "^5.2.0"
   },

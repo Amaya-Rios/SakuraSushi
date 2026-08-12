@@ -1,6 +1,11 @@
+body {
+margin: 0;
+padding: 0;
+background: #000000;
+}
+
 .login-container {
   min-height: 100vh;
-  background: #000000;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -40,4 +45,15 @@ button {
 
 button:hover {
   background: #b71c1c;
+}
+
+.error-message {
+  color: red;
+  margin-top: 10px;
+  text-align: center;
+}
+.success-message {
+  color: green;
+  margin-top: 10px;
+  text-align: center;
 }
